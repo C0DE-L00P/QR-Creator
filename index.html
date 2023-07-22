@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Without APIs -->
     <title>QR Creator</title>
 
@@ -39,7 +39,7 @@
                     generate(user_input);
                 } else {
                     qr_code_element.innerHTML = "";
-                    generate(user_input,qr_code_element);
+                    generate(user_input, qr_code_element);
                 }
             } else {
                 console.log("not valid input");
@@ -50,6 +50,7 @@
         function generate(user_input, inputElement) {
             qr_code_element.style = "";
 
+
             var qrcode = new QRCode(qr_code_element, {
                 text: `${user_input.value}`,
                 width: 180, //128
@@ -59,7 +60,7 @@
                 correctLevel: QRCode.CorrectLevel.H
             });
             document.querySelector('input').value = ''
-            
+
 
             let download = document.createElement("button");
             qr_code_element.appendChild(download);
@@ -85,9 +86,21 @@
             }
         }
 
-        generate({
-            value: "Your princess is in another castle"
-        });
+        // generate({
+        //     value: "Your princess is in another castle"
+        // });
+
+        // Format the contact information as a vCard
+        const vCard = `BEGIN:VCARD
+VERSION:3.0
+FN:Mohamed Gamal Yaseen
+EMAIL:mohamedgyaseen@gmail.com
+TEL:+201020624331
+TITLE:Engineer
+ORG:33
+END:VCARD`;
+
+        generate({ value: vCard });
     </script>
 </body>
 

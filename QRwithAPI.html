@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="./qrcode.min.js"></script>
     <style>
         input {
             padding: 8px;
@@ -64,7 +64,15 @@
             // with the given data
             ev.preventDefault();
             const formData = new FormData(ev.currentTarget)
-            let contentValue = `${formData.get('name')},${formData.get('job')},${formData.get('office')},${formData.get('email')},${formData.get('mobile')}`
+            let contentValue = `BEGIN:VCARD
+VERSION:3.0
+FN:${formData.get('name')}
+EMAIL:${formData.get('email')}
+TEL:${formData.get('mobile')}
+TITLE:${formData.get('job')}
+ORG:${formData.get('office')}
+END:VCARD`;
+            // `${formData.get('name')},${formData.get('job')},${formData.get('office')},${formData.get('email')},${formData.get('mobile')}`
             console.log(contentValue)
             const encodedValue = htmlEncode(contentValue);
             let finalURL =
