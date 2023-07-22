@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        input {
+            padding: 8px;
+        }
+
+        button {
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+
+<body style="text-align: center; background-color:rgb(222, 222, 222) ;">
+    <br>
+    <div
+        style="border-radius:  24px; background-color: #273a2e; max-width: 95%; width: min(100%, 500px); margin-inline: auto; box-shadow: 1px 1px 4px #18241c;">
+        <h1 style="color: white; text-align: center; padding-top: 16px;">Create Data QR</h1>
+        <hr style="border-color: rgb(187, 187, 187); width: 100%;">
+        <form action="" style="display: flex; flex-direction: column; gap: 8px; padding: 16px;">
+            <input required type="text" name="name" placeholder="Full Name">
+            <input required type="text" name="job" placeholder="Job">
+            <input required type="text" name="office" placeholder="Office No.">
+            <input required type="email" name="email" placeholder="Email">
+            <input required type="text" name="mobile" placeholder="Mobile No.">
+            <br>
+            <button id="generate">Create</button>
+        </form>
+        <br><br>
+
+        <div style="aspect-ratio: 1/1; min-width: 100px; max-width: max-content; padding: 12px; background: white; border-radius: 8px; margin-inline: auto;">
+            <img src=""  id="result" class="qr-code img-thumbnail img-responsive">
+        </div>
+        <br>
+    </div>
+
+    <script>
+        // Function to HTML encode the text
+        // This creates a new hidden element,
+        // inserts the given text into it
+        // and outputs it out as HTML
+        function htmlEncode(value) {
+            const div = document.createElement('div');
+            div.textContent = value;
+            return div.innerHTML;
+        }
+
+        // Specify an onclick function
+        // for the generate button
+        // const generateButton = document.getElementById('generate');
+        document.querySelector('form').addEventListener('submit', function (ev) {
+            // Generate the link that would be
+            // used to generate the QR Code
+            // with the given data
+            ev.preventDefault();
+            const formData = new FormData(ev.currentTarget)
+            let contentValue = `${formData.get('name')},${formData.get('job')},${formData.get('office')},${formData.get('email')},${formData.get('mobile')}`
+            console.log(contentValue)
+            const encodedValue = htmlEncode(contentValue);
+            let finalURL =
+                'https://chart.googleapis.com/chart?cht=qr&chl=' +
+                encodedValue +
+                '&chs=160x160&chld=L|0';
+
+            // Replace the src of the image with
+            // the QR code image
+            const qrCodeImage = document.querySelector('.qr-code');
+            qrCodeImage.setAttribute('src', finalURL);
+        });
+    </script>
+</body>
+
+</html>
